@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="zh">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hyper Box 2.0</title>
+    <link rel="stylesheet" href="styles.css">
+
+<style>
+    body {
+    font-family: MiSans;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f9;
+    color: #000000;
+    background-image: url('background.jpg'); /* 增加一个背景图片以提高毛玻璃效果 */
+    background-size: cover;
+}
+h2 {
+    text-align: center;
+    color: #0056b3; /* 设置标题颜色 */
+    margin-top: 30px; /* 上边距 */
+    margin-bottom: 20px; /* 下边距 */
+    font-size: 22px; /* 字体大小 */
+}
+header {
+    color: white;
+    text-align: center;
+    padding: 20px 10px;
+    backdrop-filter: blur(12px);
+}
+
+header h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+header p {
+    margin: 10px 0 0;
+    font-size: 16px;
+}
+
+#features, #introduction {
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+}
+
+.feature, .intro {
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    padding: 10px;
+    border-radius: 8px;
+    backdrop-filter: blur(5px); /* 应用毛玻璃效果 */
+}
+
+.feature h3, .intro h3 {
+    margin-top: 0;
+}
+
+footer {
+    text-align: center;
+    padding: 10px 0;
+    backdrop-filter: blur(8px);
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+}
+    /* 添加淡入淡出动画 */
+.modal {
+    display: none; /* 默认隐藏模态框 */
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(5px); /* 应用毛玻璃效果 */
+    z-index: 1000; /* 确保模态框在最前面 */
+    opacity: 0; /* 开始时透明度为0 */
+    transition: opacity 0.4s ease-in-out; /* 过渡效果 */
+}
+
+.modal-content {
+    background-color: #9BB7FF;
+    margin: 15% auto; /* 从顶部和居中位置开始 */
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%; /* 根据屏幕大小调整 */
+    backdrop-filter: blur(10px); /* 应用毛玻璃效果 */
+    border-radius: 10px;
+    transform: translateY(-50px); /* 初始状态稍微向上移动 */
+    transition: transform 0.4s ease-in-out; /* 过渡效果 */
+}
+
+
+    .close {
+        color: #aaa;
+        float: right;
+        font-size: 28px;
+        font-weight: bold;
+    }
+
+    .close:hover,
+    .close:focus {
+        color: black;
+        text-decoration: none;
+        cursor: pointer;
+    }
+</style>
+</head>
+
+<body>
+    <header>
+        <h1>Hyper Box 2.0</h1>
+        <p>您的智能穿戴伴侣</p>
+    </header>
+
+    <section id="introduction">
+        <div class="intro">
+            <h2>关于 Hyper Box</h2>
+            <p>Hyper Box 是一款专为智能穿戴设备设计的应用程序，支持 Zepp OS 平台并正积极开发兼容 Vela OS 的版本。它集多功能于一体，不仅提高了穿戴设备的实用性，也增添了趣味性。</p>
+        </div>
+    </section>
+
+    <h2>功能亮点</h2>
+
+    <section id="features">
+        <div class="feature" onclick="openModal('modalCalculator')">
+            <h3>🧮 计算器</h3>
+            <p>快速方便的计算功能，直接在手腕上完成。</p>
+        </div>
+        <div class="feature" onclick="openModal('modalGlowStick')">
+            <h3>🌟 荧光棒</h3>
+            <p>夜间活动的最佳伴侣，为您的晚上增添色彩</p>
+        </div>
+        <div class="feature" onclick="openModal('modalQuote')">
+            <h3>💬 每日一言</h3>
+            <p>每天一句励志或深思的名言，启发您的生活</p>
+        </div>
+        <div class="feature" onclick="openModal('modalBMI')">
+            <h3>🔝 身体质量指数计算器</h3>
+            <p>关注您的健康，快速了解身体状态</p>
+        </div>
+        <div class="feature" onclick="openModal('modalPerformance')">
+            <h3>🚀 性能测试</h3>
+            <p>检测您的设备性能，确保运行流畅</p>
+        </div>
+    </section>
+    
+    <!-- 模态窗口结构 -->
+    <div id="modalCalculator" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalCalculator')">&times;</span>
+            <h2>计算器</h2>
+            <p>目前唯一在小米手环7端使用动态运行代码的计算器，并且也是在小米手环7端唯一有动效的计算器</p>
+            <a href="cal.html"><button>前往模拟页面</button></a>
+        </div>
+    </div>
+    <div id="modalGlowStick" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalGlowStick')">&times;</span>
+            <h2>荧光棒</h2>
+            <p>目前小米手环7端维二采用矩形动帧的荧光棒</p>
+        </div>
+    </div>
+    <div id="modalQuote" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal('modalQuote')">&times;</span>
+            <h2>每日一言</h2>
+            <p>离线版为目前最多词库的一言功能，在线版为唯一一个专为米环7制作的联网程序</p>
+        </div>
+    </div>
+    
+    
+
+    <footer>
+        <p>联系我们: strgin@163.com</p>
+    </footer>
+
+<script>
+function openModal(modalId) {
+    var modal = document.getElementById(modalId);
+    modal.style.display = "block";
+    setTimeout(function() {
+        modal.style.opacity = 1;
+        modal.querySelector('.modal-content').style.transform = 'translateY(0)';
+    }, 10); // 短暂延迟确保CSS变化能生效
+}
+
+function closeModal(modalId) {
+    var modal = document.getElementById(modalId);
+    modal.style.opacity = 0;
+    modal.querySelector('.modal-content').style.transform = 'translateY(-50px)';
+    setTimeout(function() {
+        modal.style.display = "none";
+    }, 400); // 等待动画完成后再隐藏模态框
+}
+
+
+
+    // 点击模态框外区域关闭模态框
+    window.onclick = function(event) {
+    // 检测所有带有'class'为'modal'的元素
+    var modals = document.querySelectorAll('.modal');
+    modals.forEach(function(modal) {
+        if (event.target == modal) {
+            modal.style.opacity = 0;
+            modal.querySelector('.modal-content').style.transform = 'translateY(-50px)';
+            setTimeout(function() {
+                modal.style.display = "none";
+            }, 400);
+        }
+    });
+}
+
+</script>
+</body>
+
+</html>
