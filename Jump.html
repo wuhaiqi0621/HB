@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Jump Game</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            position: relative;
+            width: 192px;
+            height: 480px;
+            background-color: #FAFAD2; /* Example background, change as needed */
+            overflow: hidden;
+        }
+        .block, .player, .shadow, .help, .button, .restart, .score-bar {
+            position: absolute;
+        }
+        .block {
+            width: 30px;
+            height: 40px;
+            background-image: url('jump/block10.png'); /* Example block image */
+            background-size: cover;
+        }
+        .player {
+            width: 50px;
+            height: 50px;
+            bottom: 20px;
+            left: 30px;
+            background-image: url('jump/piece.png');
+            background-size: cover;
+        }
+        .shadow {
+            width: 100%;
+            height: 50px;
+            bottom: 0;
+            background-image: url('Shadow_down.png');
+            background-size: cover;
+        }
+        .help {
+            top: 23px;
+            right: 20px;
+            width: 50px;
+            height: 50px;
+            background-image: url('help.png');
+            background-size: cover;
+        }
+        .button {
+            bottom: 90px;
+            left: 36px;
+            width: 50px;
+            height: 50px;
+            background-image: url('jump/btn2.png');
+            background-size: cover;
+        }
+        .restart {
+            display: none;
+            bottom: 210px;
+            left: 5px;
+            width: 50px;
+            height: 50px;
+            background-image: url('jump/restart.png');
+            background-size: cover;
+        }
+        .score-bar {
+            top: 75px;
+            left: 46px;
+            width: 100px;
+            height: 6px;
+            background-color: #858585;
+            border-radius: 3px;
+        }
+        .score-progress {
+            width: 0;
+            height: 6px;
+            background-color: #FFFFFF;
+            border-radius: 3px;
+        }
+        .score-text {
+            top: 120px;
+            width: 192px;
+            text-align: center;
+            font-size: 30px;
+            color: #000000;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="block"></div>
+        <div class="player"></div>
+        <div class="shadow"></div>
+        <div class="help"></div>
+        <div class="button"></div>
+        <div class="restart"></div>
+        <div class="score-bar">
+            <div class="score-progress"></div>
+        </div>
+        <div class="score-text">Score: 0</div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(function () {
+            // Add interactivity and game logic here
+        });
+    </script>
+</body>
+</html>
