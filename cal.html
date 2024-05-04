@@ -1,43 +1,183 @@
 <!DOCTYPE html>
-<html lang="zh-CN">
+<html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>跳一跳小程序</title>
+    <title>Hyper Box | 计算器模拟</title>
+    <link rel="stylesheet" href="styles.css">
+
     <style>
-        .container {
-            position: relative;
-            width: 300px;
-            height: 500px;
-            background-color: lightblue;
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            font-family: 'Arial', sans-serif;
         }
         
-        .block {
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
+        .calculator {
+            width: 230px;
+            background: #fff;
+            border-radius: 5px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            padding: 10px;
+        }
+        
+        .btn {
             width: 50px;
             height: 50px;
-            background-color: red;
+            margin: 5px;
+            font-size: 24px;
+            border-radius: 18px;
+            cursor: pointer;
+            border: none;
+            color: #FFFFFF;
+            background-color: #222222; /* 按钮默认颜色 */
         }
+        
+        .btn.symbol {
+            background-color: #406FE7; /* 运算符号按钮颜色 */
+        }
+        
+        .btn.action {
+            background-color: #7FA3FF; /* 功能按钮颜色 */
+        }
+        
+        .display {
+            width: 210px;
+            height: 98px;
+            color: #EFEFEF;
+            padding: 10px 10px 5px 10px;
+            margin-bottom: 10px;
+            text-align: right;
+            font-size: 22px;
+            line-height: 1.4;
+            vertical-align: bottom;
+            border-radius: 5px;
+            background-color: #333;
+        }
+        
+        /* 特别处理上方小字体结果显示 */
+        .super-display {
+            font-size: 16px;
+            color: #727171;
+            position: relative;
+            top: -40px; /* 调整位置覆盖在大显示层上 */
+            right: 0;
+            width: 100%;
+            text-align: right;
+        }
+        
     </style>
 </head>
+
 <body>
-    <div class="container" onclick="jump()">
-        <div class="block"></div>
+    <div class="calculator">
+        <div class="display" id="display">0</div>
+        <button class="btn" onclick="appendNumber('7')">7</button>
+        <button class="btn" onclick="appendNumber('8')">8</button>
+        <button class="btn" onclick="appendNumber('9')">9</button>
+
+        <button class="btn" onclick="appendNumber('4')">4</button>
+        <button class="btn" onclick="appendNumber('5')">5</button>
+        <button class="btn" onclick="appendNumber('6')">6</button>
+
+        <button class="btn" onclick="appendNumber('1')">1</button>
+        <button class="btn" onclick="appendNumber('2')">2</button>
+        <button class="btn" onclick="appendNumber('3')">3</button>
+
+        <button class="btn" onclick="appendNumber('0')">0</button>
+        <button class="btn action" onclick="calculateResult()">=</button>
     </div>
+    <script src="script.js"></script>
 
     <script>
-        let block = document.querySelector('.block');
-
-        function jump() {
-            block.style.transition = '0.3s';
-            block.style.bottom = '200px';
-            setTimeout(() => {
-                block.style.bottom = '0';
-            }, 300);
+        let currentInput = '';
+        let operand1 = null;
+        let operator = null;
+        let startY, endY;
+        
+        const buttons = document.querySelectorAll('.btn');
+        const operatorButtons = ['+', '-', '*', '/'];
+        
+        function appendNumber(number) {
+            if(currentInput === '0' && number !== '.') {
+                currentInput = number;
+            } else {
+                currentInput += number;
+            }
+            updateDisplay();
         }
+        
+        function chooseOp(op) {
+            if(currentInput !== '') {
+                calculateResult();
+            }
+            operator = op;
+            operand1 = parseFloat(currentInput);
+            currentInput = '';
+        }
+        
+        function calculateResult() {
+            let operand2 = parseFloat(currentInput);
+            if(operator != null && !isNaN(operand1) && !isNaN(operand2)) {
+                let result = new Function(`${operand1} ${operator} ${operand2}`);
+                currentInput = String(result);
+                operator = null;
+                operand1 = null;
+            }
+            updateDisplay();
+        }
+        
+        function clearDisplay() {
+            currentInput = '0';
+            operand1 = null;
+            operator = null;
+            updateDisplay();
+        }
+        
+        function updateDisplay() {
+            document.getElementById('display').innerText = currentInput;
+        }
+        
+        document.querySelector('.calculator').addEventListener('touchstart', function(e) {
+            startY = e.touches[0].clientY;
+        }, false);
+        
+        document.querySelector('.calculator').addEventListener('touchend', function(e) {
+            endY = e.changedTouches[0].clientY;
+            handleGesture();
+        }, false);
+        
+        function handleGesture() {
+            if (startY > endY + 50) {
+                // Swipe up
+                showOperators();
+            } else if (startY < endY - 50) {
+                // Swipe down
+                showNumbers();
+            }
+        }
+        
+        function showOperators() {
+            buttons.forEach((btn, index) => {
+                if (index < operatorButtons.length) {
+                    btn.textContent = operatorButtons[index];
+                    btn.onclick = () => chooseOp(operatorButtons[index]);
+                }
+            });
+        }
+        
+        function showNumbers() {
+            buttons.forEach((btn, index) => {
+                btn.textContent = index.toString();
+                btn.onclick = () => appendNumber(index.toString());
+            });
+        }
+        
     </script>
 </body>
+
 </html>
